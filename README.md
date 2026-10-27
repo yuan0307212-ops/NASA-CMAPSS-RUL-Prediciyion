@@ -6,6 +6,8 @@
 
 **公開網址：** https://nasa-cmapss-rul-prediciyion.onrender.com/
 
+> **提醒：** 本網站使用 Render 免費伺服器，首次開啟可能需要等待約 1 分鐘，請稍候自動載入。
+
 ---
 
 完整可執行的 Flask 多元線性回歸網站，使用你提供的 NASA C-MAPSS FD001–FD004 資料。
