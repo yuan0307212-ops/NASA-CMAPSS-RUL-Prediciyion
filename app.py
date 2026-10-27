@@ -9,21 +9,21 @@ from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import SelectKBest,f_regression
 from sklearn.metrics import mean_absolute_error,mean_squared_error,r2_score
 BASE=os.path.dirname(__file__)
-app=Flask(__name__)
+app=Flask(__name__, template_folder=BASE, static_folder=BASE, static_url_path='/static')
 app.config['MAX_CONTENT_LENGTH']=12*1024*1024
 @app.route('/')
 def home():return render_template('index.html')
 @app.route('/api/summary/<subset>')
 def summary(subset):
     if subset not in ('FD001','FD002','FD003','FD004'):return jsonify(error='無效資料集'),400
-    path=os.path.join(BASE,'outputs',f'summary_{subset}.json')
-    if os.path.exists(path):return send_from_directory(os.path.join(BASE,'outputs'),f'summary_{subset}.json')
+    path=os.path.join(BASE,f'summary_{subset}.json')
+    if os.path.exists(path):return send_from_directory(BASE,f'summary_{subset}.json')
     return jsonify(summarize(subset))
 @app.route('/api/model/<subset>')
 def model(subset):
     if subset not in ('FD001','FD002','FD003','FD004'):return jsonify(error='無效資料集'),400
-    path=os.path.join(BASE,'outputs',f'model_{subset}.json')
-    if os.path.exists(path):return send_from_directory(os.path.join(BASE,'outputs'),f'model_{subset}.json')
+    path=os.path.join(BASE,f'model_{subset}.json')
+    if os.path.exists(path):return send_from_directory(BASE,f'model_{subset}.json')
     return jsonify(fit(subset)[0])
 @app.route('/api/train',methods=['POST'])
 def train():
@@ -67,7 +67,7 @@ def custom():
 @app.route('/download/<filename>')
 def download(filename):
     if filename not in [f'{kind}_{sub}.txt' for kind in ('train','test','RUL') for sub in ('FD001','FD002','FD003','FD004')]+['readme.txt']:return 'Not found',404
-    return send_from_directory(os.path.join(BASE,'data'),filename,as_attachment=True)
+    return send_from_directory(BASE,filename,as_attachment=True)
 @app.route('/health')
 def health():return jsonify(status='ok')
 if __name__=='__main__':app.run(host='0.0.0.0',port=int(os.environ.get('PORT',5000)),debug=False)
