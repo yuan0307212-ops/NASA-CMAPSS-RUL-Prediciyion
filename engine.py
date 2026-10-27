@@ -16,7 +16,7 @@ COLS=['unit']+FEATURES
 def load(subset, kind):
     if subset not in ('FD001','FD002','FD003','FD004'): raise ValueError('不支援的資料集')
     if kind not in ('train','test'): raise ValueError('不支援的資料種類')
-    p=os.path.join(BASE,'data',f'{kind}_{subset}.txt')
+    p=os.path.join(BASE,f'{kind}_{subset}.txt')
     df=pd.read_csv(p,sep=r'\s+',header=None)
     if df.shape[1]!=26: raise ValueError(f'資料欄數錯誤: {df.shape[1]}')
     df.columns=COLS
@@ -24,7 +24,7 @@ def load(subset, kind):
 
 @lru_cache(maxsize=4)
 def rul_truth(subset):
-    return pd.read_csv(os.path.join(BASE,'data',f'RUL_{subset}.txt'),header=None,sep=r'\s+').iloc[:,0].to_numpy()
+    return pd.read_csv(os.path.join(BASE,f'RUL_{subset}.txt'),header=None,sep=r'\s+').iloc[:,0].to_numpy()
 
 def train_labels(df):
     out=df.copy()
