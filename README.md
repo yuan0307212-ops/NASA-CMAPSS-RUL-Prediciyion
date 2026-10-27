@@ -1,5 +1,13 @@
 # AERO LAB — NASA C-MAPSS RUL Prediction / HW2
 
+## 🌐 線上網站｜立即體驗
+
+### **🚀 [點此開啟 AERO LAB 飛機引擎剩餘壽命預測網站](https://nasa-cmapss-rul-prediciyion.onrender.com/)**
+
+**公開網址：** https://nasa-cmapss-rul-prediciyion.onrender.com/
+
+---
+
 完整可執行的 Flask 多元線性回歸網站，使用你提供的 NASA C-MAPSS FD001–FD004 資料。
 
 ## 本機執行
